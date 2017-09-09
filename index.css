@@ -1,0 +1,39 @@
+.flick-rotate {
+  animation-duration: 2s;
+  animation-name: flick-rotate;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flick-rotate  {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.flick-end {
+  animation-duration: 1s;
+  animation-iteration-count: 5;
+  animation-name: flick-end;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flick-end  {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

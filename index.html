@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sand Pomodoro</title>
+        <script 
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+        >
+        </script>
+        <script 
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+            crossorigin="anonymous"
+        >
+        </script>
+        <link 
+            rel="stylesheet" 
+            href="index.css" 
+        />
+        <link 
+            rel="stylesheet" 
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Sand Pomodoro</h1>
+            </div>
+            <div class="main">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6 ">
+                        <h2>Session</h2>
+                        <button id="session-minus" class="btn btnSettings" data-action="-1" data-target="sessionDur">-</button>
+                        <span id="session-length">01</span>
+                        <button id="session-plus" class="btn btnSettings" data-action="+1" data-target="sessionDur">+</button>
+                    </div>
+                    <div class="col-md-3 col-md-push-6 col-xs-6">
+                        <h2>Break</h2>
+                        <button id="break-minus" class="btn btnSettings" data-action="-1" data-target="breakDur">-</button>
+                        <span id="break-length">01</span>
+                        <button id="break-plus" class="btn btnSettings" data-action="+1" data-target="breakDur">+</button>
+                    </div>
+                    <div class="col-md-6 col-md-pull-3 col-xs-12">
+                        <h2>Pomodoro</h2>
+                        <div>
+                            <button class="btn btnControl" data-action="start">start</button>
+                            <button class="btn btnControl" data-action="pause">pause</button>
+                            <button class="btn btnControl" data-action="stop">stop</button>
+                        </div>
+                        <div>
+                            <svg width="300" height="400"  xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                                
+                                <defs>
+                                    <linearGradient y2="0" x2="0.04" spreadMethod="repeat" id="wood_grad">
+                                        <stop offset="0" stop-color="#844203"/>
+                                        <stop offset="1" stop-color="#9b4c03"/>
+                                    </linearGradient>
+                                    <linearGradient spreadMethod="reflect" y1="0" x1="0.5" id="perspect" x2="1" y2="0">
+                                        <stop offset="0.31903" stop-color="#e5e5e5"/>
+                                        <stop offset="1" stop-color="#7f7f7f"/>
+                                    </linearGradient>
+                                </defs>
+                                <g id="svg-container">
+                                    <g>
+                                        <title>stands</title>
+                                        <ellipse 
+                                            id="up_stand"
+                                            ry="20" 
+                                            rx="105"  
+                                            cy="35" 
+                                            cx="150" 
+                                            stroke-width="3" 
+                                            stroke="#000000" 
+                                            fill="url(#wood_grad)"
+                                        />
+                                        <ellipse 
+                                            id="low_stand"
+                                            ry="20" 
+                                            rx="105" 
+                                            cy="365" 
+                                            cx="150" 
+                                            stroke-width="3" 
+                                            stroke="#000000" 
+                                            fill="url(#wood_grad)" 
+                                        />
+                                    </g>
+                                    <g>
+                                        <title>sand</title>
+
+                                        <clipPath id="up_clip_path">
+                                            <polygon points="80 35 80 120 145 180 155 180 220 120 220 35"/>
+                                        </clipPath>
+                                        <path 
+                                            id="up_sand" 
+                                            d="M81 35.8C88.3 35.9 98.7 36 110.7 36.1 116.7 36.1 128.3 36.2 136.5 36.2 144.7 36.2 152.1 36.2 162.2 36.2 172.4 36.2 183.3 36.1 189.3 36.1 201.3 36 211.8 35.9 219 35.8L81 35.8Z"
+                                            fill="#e59952"
+                                            clip-path="url(#up_clip_path)"
+                                            
+                                        />
+            
+                                        <clipPath id="low_clip_path">
+                                            <polygon points="80 365 80 280 145 220 155 220 220 280 220 365"/>
+                                        </clipPath>
+                                        <path 
+                                            id="low_sand" 
+                                            d="M219 364C212.3 326.8 201 296 190 280.2 179 264.4 184.2 268.7 171.4 257.7 158.5 246.8 148.1 242.6 129.8 259.2 111.6 275.9 116.6 270.9 110.6 280.2 98.4 298.8 88 326.8 81 364L219 364Z"
+                                            fill="#e59952"
+                                            clip-path="url(#low_clip_path)"
+                                        />
+                                    </g>
+                                    <g>
+                                        <title>falling_sands</title>
+                                        <rect 
+                                            id="falling_sand" 
+                                            height="0" 
+                                            width="3" 
+                                            y="220" 
+                                            x="148.5"
+                                            stroke="#e59952" 
+                                            stroke-width="2"  
+                                            stroke-dasharray="2 2"
+                                            fill="none"
+                                        />
+                                    </g>
+                                    <g>
+                                        <title>tube</title>
+                                        <rect 
+                                            id="tube"
+                                            stroke="#000000" 
+                                            ry="5" 
+                                            rx="5" 
+                                            stroke-width="3" 
+                                            x="144"
+                                            y="180" 
+                                            width="12" 
+                                            height="40"
+                                            fill="url(#perspect)" 
+                                            fill-opacity="0.25"
+                                        />
+                                    </g>
+                                    <g>
+                                        <title>boxes</title>
+                                        <path 
+                                            id="up_glass" 
+                                            d="M 80 35 L 80 120 L 145 180 L 155 180 L 220 120 L 220 35Z" 
+                                            stroke-width="3" 
+                                            stroke="#000000" 
+                                            fill="url(#perspect)" 
+                                            fill-opacity="0.25"
+                                        />
+                                        <path 
+                                            id="low_glass" 
+                                            d="M 80 365 L 80 280 L 145 220 L 155 220 L 220 280 L 220 365Z" 
+                                            stroke-width="3" 
+                                            stroke="#000000" 
+                                            fill="url(#perspect)" 
+                                            fill-opacity="0.25"
+                                        />
+                                    </g>
+                                </g>
+                                <g>
+                                    <title>time</title>
+                                    <text 
+                                        id="minutes" 
+                                        font-size="48" 
+                                        font-family="serif" 
+                                        x="115" 
+                                        y="215" 
+                                        fill="#000000"  
+                                        stroke="#000000"
+                                        text-anchor="middle" 
+                                        xml:space="preserve"
+                                    >
+                                    01
+                                    </text>
+                                    <text 
+                                        id="seconds"
+                                        font-size="48" 
+                                        font-family="serif" 
+                                        x="185" 
+                                        y="215"
+                                        fill="#000000"
+                                        stroke="#000000"
+                                        text-anchor="middle" 
+                                        xml:space="preserve" 
+                                    >
+                                    00
+                                    </text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="index.1.js"></script>
+    </body>
+</html>
